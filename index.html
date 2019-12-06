@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>My To Do</title>
+        <style>
+            .header{
+                width: 100%;
+                height: 60px;
+                background-color: gray;
+                color: blue;
+                margin: 0;
+            }
+            .header li{
+                list-style: none;
+            }
+            .menu{
+                margin: 20px 20px 20px 0;
+                float: right;
+                font-weight: bold;
+                font-size: large;
+            }
+            .header li ul{
+                list-style: none;
+                display: inline;
+            }
+            .content {
+                width: 100%;
+                min-height: 80vh;
+                background-color: rgb(182, 175, 175);
+                margin: 0;
+                padding-top: 10px;
+                padding-bottom: 40px;
+            }
+            .content h1 {
+                text-align: center;
+                color: indigo;
+                margin: 0;
+            }
+            .content .input_area {
+                border: 2px solid indigo;
+                width: 60%;
+                margin: 30px auto;
+                padding: 20px 20px 20px 80px;
+                font-weight: bold;
+                border-radius: 50px;
+            }
+            .content .todo_list, .content .done_todo {
+                border: 2px solid indigo;
+                width: 70%;
+                margin: 30px auto;
+                padding: 0 30px 0 30px;
+                font-weight: bold; 
+                background-color: rgb(175, 174, 171);
+            }
+            .content .todo_list h2, .content .done_todo h2 {
+                text-align: center;
+                color: greenyellow;
+            }
+            .input_area .align-label, .update_window .align-label {
+                width: 22%;
+                float: left;
+                font-size: 18px;
+                color: white;
+            }
+            .input_area input, .input_area textarea, .update_window input, .update_window textarea {
+                border: 2px solid rgb(39, 36, 36);
+            }
+            .input_area input {
+                height: 25px;
+                width: 370px;
+            }
+            .update_window input {
+                height: 25px;
+                width: 440px;
+            }
+            .input_area button, .update_window button, #close_view_button {
+                border-radius: 50px;
+                font-size: 18px;
+                background-color: green;
+                margin-top: 30px;
+                padding: 10px;
+                color: white;
+                width: 120px;
+            }
+            .input_area button {
+                margin-left: 40%; 
+            }
+            .input_area button:hover, .todo_buttons:hover, .update_window button:hover, #close_view_button:hover {
+                cursor: pointer;
+                background-color: gray;
+                color: blue;
+            }
+            .close_view {
+                text-align: center;
+                position: absolute;
+                bottom: 20px;
+            }
+            #updatebtn_area {
+                margin: 0 30% 30px 30%;
+            }
+            #error_box, #update_error_box {
+                font-size: 14px;
+                color: red;
+            }
+            #success_box, #update_success_box {
+                font-size: 14px;
+                color: rgb(11, 150, 11);
+                background-color: white;
+            }
+            .todo_buttons {
+                border-radius: 10px;
+                font-size: 14px;
+                background-color: green;
+                margin-left: 20px;
+                padding: 3px;
+                color: white;
+                width: 80px;
+            } 
+            .update_window, .view_window {
+                display: none;
+                position: absolute;
+                left: 15%;
+                right: 15%;
+                border: 2px solid indigo;
+                width: 60%;
+                height: 420px; 
+                margin: 20px auto;
+                padding: 20px 20px 50px 80px;
+                font-weight: bold;
+                border-radius: 50px;
+                background-color: rgb(175, 174, 171);
+            }
+            .close_button {
+                position: absolute;
+                right: 30px;
+                top: 20px;
+                font-size: 22px;
+                opacity: 0.5;
+            }
+            .view_heading {
+                text-align: center;
+                font-size: 24px;
+                font-weight: bold;
+            }
+            .view_label {
+                font-size: 18px;
+                font-weight: bold;
+                margin-top: 30px;
+            }
+            .close_button:hover {
+                opacity: 1;
+                color: white;
+                background: red;
+                cursor: pointer;
+                width: 30px;
+                height: 30px;
+                text-align: center;
+            }
+            .ratings {
+                font-size: 22px;
+            }
+            #todo_rating, #view_subject {
+                display: inline;
+                margin-right: 30px;
+            }
+            .footer{
+                display: block;
+                width: 100%;
+                height: 60px;
+                background-color: gray;
+                clear: both;
+                margin: 0;
+                text-align: center;
+                font-weight: bold;
+                padding-top: 20px;
+                font-size: large;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <div class="menu">
+                <li>
+                    <ul>Menu</ul>
+                    <ul>Services</ul>
+                    <ul>Subsidiaries</ul>
+                    <ul>About Us</ul>
+                    <ul>Contact Us</ul>
+                </li>
+            </div>
+        </div>
+        <div class="content">
+            <h1>Activities To Do</h1>
+            <div class="update_window">
+                <div class="close_button" id="close_update" title="Close Update Window">&#10005;</div>
+                <p>Enter To Do details below and submit <span id="update_error_box"></span><span id="update_success_box"></span></p>
+                <p>
+                    <label for="update_subject" class="align-label">Activity Heading</label>
+                    <input type="text" name="update_subject" id="update_subject" placeholder="Enter Heading of the Activity">
+                </p>
+                <p>
+                    <label for="update_description" class="align-label">Activity Description</label>
+                    <textarea name="update_description" id="update_description" cols="60" rows="15" placeholder="Describe Activitiy to be done"></textarea>
+                </p>
+                <p id="updatebtn_area">
+                    <label for="" class="align-label"></label>
+                    <button type="submit" id="updatebtn">Update</button>
+                    <button type="submit" id="cancel_button">Cancel</button>
+                </p>
+            </div>
+            <div class="view_window">
+                <div class="close_button" id="close_view" title="Close View Window">&#10005;</div>
+                <div class="view_heading">MY ACTIVITY TO DO</div>
+                <div class="view_label"><p>SUBJECT</p></div>
+                <div id="view_subject"></div>
+                <div id="todo_rating">
+                    <span class="ratings" id="star1">&#9733;</span>
+                    <span class="ratings" id="star2">&#9733;</span>
+                    <span class="ratings" id="star3">&#9733;</span>
+                    <span class="ratings" id="star4">&#9734;</span>
+                    <span class="ratings" id="star5">&#9734;</span>
+                </div>
+                <div class="view_label"><p>DESCRIPTION</p></div>
+                <div id="view_description"></div>
+                <div class="close_view">
+                    <button type="submit" id="close_view_button">Close</button>
+                </div>
+            </div>
+            <div class="input_area">
+                <p>Enter To Do details below and submit <span id="error_box"></span><span id="success_box"></span></p>
+                <p>
+                    <label for="subject" class="align-label">Activity Heading</label>
+                    <input type="text" name="subject" id="subject" placeholder="Enter Heading of the Activity">
+                </p>
+                <p>
+                    <label for="description" class="align-label">Activity Description</label>
+                    <textarea name="description" id="description" cols="50" rows="10" placeholder="Describe Activitiy to be done"></textarea>
+                </p>
+                <p id="submitbtn">
+                    <label for="" class="align-label"></label>
+                    <button type="submit" id="submit_todo">Submit</button>
+                </p>
+            </div>
+            <div class="todo_list">
+                <h2>List of To-Dos</h2>
+                <div id="displayTodoList"></div>
+            </div>
+            <div class="done_todo">
+                <h2>Completed To-Dos</h2>
+                <div id="displayDoneTodoList"></div>
+            </div>
+        </div>
+        <div class="footer">
+            &copy;2019 Success Info Technologies<span class="trade_mark">&trade;</span>
+        </div>      
+    </body>
+    <script src="todo.js"></script>
+</html>
